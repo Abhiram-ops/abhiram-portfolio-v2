@@ -107,11 +107,18 @@ export default function App() {
         <span className="count">{seen.size} OF {TOTAL} DISCOVERED</span>
       </section>
 
-      <ul className="hero" aria-label="Highlights">
-        {hero.map((h) => (
-          <li key={h.l}><strong>{h.n}</strong><span>{h.l}</span></li>
+      <div className="hero" role="group" aria-label="Highlights by company">
+        {hero.map((g) => (
+          <section key={g.org} aria-label={`${g.org}, ${g.role}`}>
+            <h2>{g.org}<span> · {g.role}</span></h2>
+            <ul>
+              {g.items.map((h) => (
+                <li key={h.l}><strong>{h.n}</strong><span>{h.l}</span></li>
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
 
       <nav className="explore" aria-label="Explore the office">
         {entries.map((e) => (

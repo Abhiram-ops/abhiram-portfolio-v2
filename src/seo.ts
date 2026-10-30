@@ -6,6 +6,8 @@ const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 
 function block(b: Block): string {
   switch (b.t) {
+    case "h":
+      return `<h3>${esc(b.text)}</h3>`;
     case "p":
       return `<p>${esc(b.text)}</p>`;
     case "stats":
@@ -31,7 +33,7 @@ function block(b: Block): string {
 }
 
 export function renderStaticContent(): string {
-  const highlights = `<ul>${hero.map((h) => `<li><strong>${esc(h.n)}</strong> ${esc(h.l)}</li>`).join("")}</ul>`;
+  const highlights = hero.map((g) => `<h2>${esc(g.org)} — ${esc(g.role)}</h2><ul>${g.items.map((h) => `<li><strong>${esc(h.n)}</strong> ${esc(h.l)}</li>`).join("")}</ul>`).join("");
   const sections = entries
     .map((e) => `<section aria-labelledby="s-${e.id}"><h2 id="s-${e.id}">${esc(e.title)}</h2>${e.blocks.map(block).join("")}</section>`)
     .join("");

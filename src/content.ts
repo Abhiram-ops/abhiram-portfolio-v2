@@ -1,5 +1,6 @@
 export type Block =
   | { t: "p"; text: string }
+  | { t: "h"; text: string }
   | { t: "stats"; items: { n: string; l: string }[] }
   | { t: "list"; items: string[] }
   | { t: "tags"; items: string[] }
@@ -62,14 +63,28 @@ export const entries: Entry[] = [
     title: "Results, in numbers",
     menu: "Results",
     blocks: [
+      { t: "h", text: "OpenHire · Growth Consultant" },
       {
         t: "stats",
         items: [
-          { n: "35%", l: "pipeline conversion rate, campus partnership channel at Caarya" },
-          { n: "50%", l: "increase in partner onboarding at Caarya" },
-          { n: "5", l: "enterprise client accounts managed at OpenHire" },
+          { n: "5", l: "enterprise client accounts managed" },
           { n: "2 lakh+", l: "placements delivered" },
           { n: "10+", l: "industries covered with the founder" },
+        ],
+      },
+      {
+        t: "list",
+        items: [
+          "Reduced client hiring turnaround by restructuring sourcing channels and introducing pre-vetted candidate pipelines.",
+          "Run the recruiter team's daily requisition flow against a same-day closure SLA.",
+        ],
+      },
+      { t: "h", text: "Caarya · Business Development Manager (Internship)" },
+      {
+        t: "stats",
+        items: [
+          { n: "35%", l: "pipeline conversion rate, campus partnership channel" },
+          { n: "50%", l: "increase in partner onboarding" },
         ],
       },
       {
@@ -78,13 +93,6 @@ export const entries: Entry[] = [
         who: "Name Surname",
         role: "Title, Company",
         placeholder: true,
-      },
-      {
-        t: "list",
-        items: [
-          "Reduced client hiring turnaround by restructuring sourcing channels and introducing pre-vetted candidate pipelines.",
-          "Run the recruiter team's daily requisition flow against a same-day closure SLA.",
-        ],
       },
     ],
   },
@@ -378,10 +386,8 @@ export const byId = Object.fromEntries(entries.map((e) => [e.id, e])) as Record<
 // The lamp is discoverable too, but it toggles the light instead of opening a panel.
 // Headline proof points shown on the landing view (no clicks needed).
 export const hero = [
-  { n: "35%", l: "pipeline conversion" },
-  { n: "50%", l: "increase in partner onboarding" },
-  { n: "5", l: "enterprise client accounts" },
-  { n: "2 lakh+", l: "placements delivered" },
+  { org: "OpenHire", role: "Growth Consultant", items: [{ n: "5", l: "enterprise client accounts" }, { n: "2 lakh+", l: "placements delivered" }] },
+  { org: "Caarya", role: "BD Manager (Internship)", items: [{ n: "35%", l: "pipeline conversion" }, { n: "50%", l: "increase in partner onboarding" }] },
 ];
 
 export const EMAIL = "lankaabhiram16@gmail.com";

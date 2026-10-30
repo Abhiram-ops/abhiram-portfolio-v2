@@ -106,7 +106,7 @@ function Art() {
       <Obj id="results">
         <rect x="340" y="58" width="390" height="250" rx="6" fill="var(--frame-dark)" />
         <rect x="350" y="68" width="370" height="230" rx="3" fill="var(--paper)" />
-        <text x="372" y="108" className="hand" fontSize="30" fill="var(--accent)">THIS YEAR →</text>
+        <text x="372" y="108" className="hand" fontSize="30" fill="var(--accent)">AT CAARYA →</text>
         <text x="372" y="190" className="hand" fontSize="76" fill="var(--ink)">35%</text>
         <text x="372" y="226" className="hand" fontSize="22" fill="var(--ink-soft)">pipeline conversion</text>
         <text x="372" y="272" className="hand" fontSize="22" fill="var(--ink-soft)">+50% partner onboarding</text>

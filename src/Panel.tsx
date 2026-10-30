@@ -31,6 +31,8 @@ export function Panel({ entry, onClose }: { entry: Entry; onClose: () => void })
           switch (b.t) {
             case "p":
               return <p key={i}>{b.text}</p>;
+            case "h":
+              return <h3 className="sub" key={i}>{b.text}</h3>;
             case "stats":
               return (
                 <div className="stats" key={i}>
