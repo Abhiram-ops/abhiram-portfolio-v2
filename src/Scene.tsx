@@ -6,6 +6,7 @@ interface Ctx {
   onOpen: (id: string) => void;
   onTip: (label: string | null) => void;
   labels: Record<string, string>;
+  compact: boolean; // phone layout: crop the empty wall/rug so the whole room fits the width
 }
 const SceneCtx = createContext<Ctx>(null as unknown as Ctx);
 
@@ -57,8 +58,9 @@ export const Scene = memo(function Scene(props: Ctx) {
 });
 
 function Art() {
+  const { seen, compact } = useContext(SceneCtx);
   return (
-    <svg className="scene" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMax meet" role="img" aria-label="An illustrated office. Click objects to explore.">
+    <svg className="scene" viewBox={compact ? "20 40 1160 530" : "0 0 1200 700"} preserveAspectRatio="xMidYMax meet" role="img" aria-label="An illustrated office. Click objects to explore.">
       <defs>
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="var(--sky-a)" />
@@ -239,21 +241,22 @@ function Art() {
 
       {/* résumé → download */}
       <Obj id="resume">
-        <g transform="rotate(-6 800 446)">
+        <g transform="translate(-18 0) rotate(-6 800 446)">
           <rect x="766" y="436" width="78" height="14" rx="1" fill="var(--paper)" />
           <rect x="770" y="428" width="70" height="12" rx="1" fill="#fff" opacity=".9" />
           <rect x="776" y="431" width="34" height="3" fill="var(--ink-soft)" opacity=".6" />
         </g>
-        <rect x="762" y="420" width="86" height="36" fill="transparent" />
+        <rect x="744" y="420" width="76" height="36" fill="transparent" />
       </Obj>
 
       {/* lamp → light switch */}
       <Obj id="lamp">
         <circle cx="838" cy="360" r="70" fill="url(#glow)" className="lampglow" />
+        {!seen.has("lamp") && <circle cx="846" cy="370" r="30" fill="none" stroke="var(--mustard)" strokeWidth="3" className="cue" />}
         <rect x="826" y="446" width="26" height="8" rx="3" fill="var(--frame-dark)" />
         <path d="M838 446 L826 404 L850 372" fill="none" stroke="var(--frame-dark)" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M834 360 L868 356 L858 384 L828 380 z" fill="var(--mustard)" />
-        <rect x="816" y="350" width="62" height="106" fill="transparent" />
+        <rect x="824" y="350" width="56" height="106" fill="transparent" />
       </Obj>
     </svg>
   );

@@ -1,6 +1,11 @@
 import { useEffect, useRef } from "react";
 import type { Entry } from "./content";
 
+const logoFiles = import.meta.glob("./assets/logos/*.{svg,png,webp}", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+const slug = (n: string) => n.toLowerCase().replace(/[^a-z0-9]/g, "");
+const logoFor = (name: string) =>
+  Object.entries(logoFiles).find(([p]) => p.split("/").pop()!.replace(/\.\w+$/, "") === slug(name))?.[1];
+
 export function Panel({ entry, onClose }: { entry: Entry; onClose: () => void }) {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -49,6 +54,28 @@ export function Panel({ entry, onClose }: { entry: Entry; onClose: () => void })
                     </div>
                   ))}
                 </div>
+              );
+            case "logos":
+              return (
+                <ul className="logos" key={i}>
+                  {b.items.map((c) => {
+                    const src = logoFor(c.name);
+                    return (
+                      <li key={c.name}>
+                        {src ? <img src={src} alt={c.name} loading="lazy" /> : <span>{c.name}</span>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              );
+            case "quote":
+              if (b.placeholder && import.meta.env.PROD) return null;
+              return (
+                <figure className="quote" key={i}>
+                  {b.placeholder && <span className="ph">Placeholder — edit in content.ts</span>}
+                  <blockquote>{b.text}</blockquote>
+                  <figcaption><b>{b.who}</b>, {b.role}</figcaption>
+                </figure>
               );
             case "links":
               return (

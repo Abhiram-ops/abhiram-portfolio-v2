@@ -4,7 +4,10 @@ export type Block =
   | { t: "list"; items: string[] }
   | { t: "tags"; items: string[] }
   | { t: "roles"; items: { role: string; org: string; when: string; points?: string[] }[] }
-  | { t: "links"; items: { label: string; href: string }[] };
+  | { t: "links"; items: { label: string; href: string }[] }
+  | { t: "logos"; items: { name: string }[] }
+  // placeholder quotes only render in dev builds, so the live site never shows filler
+  | { t: "quote"; text: string; who: string; role: string; placeholder?: boolean };
 
 export interface Entry {
   id: string;
@@ -65,8 +68,16 @@ export const entries: Entry[] = [
           { n: "35%", l: "pipeline conversion rate, campus partnership channel at Caarya" },
           { n: "50%", l: "increase in partner onboarding at Caarya" },
           { n: "5", l: "enterprise client accounts managed at OpenHire" },
+          { n: "2 lakh+", l: "placements delivered" },
           { n: "10+", l: "industries covered with the founder" },
         ],
+      },
+      {
+        t: "quote",
+        text: "Replace this with one or two lines from your founder or a client about working with you.",
+        who: "Name Surname",
+        role: "Title, Company",
+        placeholder: true,
       },
       {
         t: "list",
@@ -84,7 +95,8 @@ export const entries: Entry[] = [
     menu: "Clients",
     blocks: [
       { t: "p", text: "Enterprise client accounts spanning EdTech, BPO and SaaS, managed at OpenHire:" },
-      { t: "tags", items: ["NxtWave", "Alorica", "Transcom", "Scaler", "Codingal"] },
+      // drop logo files into src/assets/logos/ named after the client (e.g. nxtwave.svg); the name is shown until then
+      { t: "logos", items: [{ name: "NxtWave" }, { name: "Alorica" }, { name: "Transcom" }, { name: "Scaler" }, { name: "Codingal" }] },
       {
         t: "p",
         text: "Roles I've owned from requirement intake through to offer closure: International Sales, Field Operations and SaaS Business Development. Niche pipelines built for EdTech and waste management.",
@@ -185,6 +197,10 @@ export const entries: Entry[] = [
         text: "Clients in niche sectors wait the longest, because every requisition starts from zero.",
       },
       {
+        t: "stats",
+        items: [{ n: "48 hrs", l: "pre-vetted pipeline turnaround" }],
+      },
+      {
         t: "list",
         items: [
           "Restructured sourcing channels and introduced pre-vetted candidate pipelines for niche sectors such as EdTech and waste management.",
@@ -192,7 +208,7 @@ export const entries: Entry[] = [
           "Escalate client-side delays rather than absorb them.",
         ],
       },
-      { t: "p", text: "Result: reduced client hiring turnaround time." },
+      { t: "p", text: "Result: reduced client hiring turnaround time, with a 48-hour pre-vetted pipeline turnaround." },
     ],
   },
   {
@@ -360,4 +376,15 @@ export const entries: Entry[] = [
 
 export const byId = Object.fromEntries(entries.map((e) => [e.id, e])) as Record<string, Entry>;
 // The lamp is discoverable too, but it toggles the light instead of opening a panel.
+// Headline proof points shown on the landing view (no clicks needed).
+export const hero = [
+  { n: "35%", l: "pipeline conversion" },
+  { n: "50%", l: "increase in partner onboarding" },
+  { n: "5", l: "enterprise client accounts" },
+  { n: "2 lakh+", l: "placements delivered" },
+];
+
+export const EMAIL = "lankaabhiram16@gmail.com";
+export const RESUME_HREF = "./Abhiram_Lanka_Resume.pdf";
+
 export const TOTAL = entries.length + 1;

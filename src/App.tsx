@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Scene } from "./Scene";
 import { Panel } from "./Panel";
-import { byId, entries, TOTAL } from "./content";
+import { byId, EMAIL, entries, hero, RESUME_HREF, TOTAL } from "./content";
 
 const STORE = "ab-office-seen";
 
@@ -12,6 +12,8 @@ function loadSeen(): Set<string> {
     return new Set();
   }
 }
+
+const MOBILE = "(max-width: 720px)";
 
 export default function App() {
   const [seen, setSeen] = useState<Set<string>>(loadSeen);
@@ -24,12 +26,14 @@ export default function App() {
     const h = new Date().getHours();
     return h >= 19 || h < 6;
   });
+  const [compact, setCompact] = useState(() => window.matchMedia(MOBILE).matches);
   const hintTimer = useRef<number>();
-  const stage = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const s = stage.current;
-    if (s) s.scrollLeft = (s.scrollWidth - s.clientWidth) / 2;
+    const mq = window.matchMedia(MOBILE);
+    const on = () => setCompact(mq.matches);
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
   }, []);
 
   useEffect(() => {
@@ -81,11 +85,18 @@ export default function App() {
 
   return (
     <div className="app" onMouseMove={(e) => setPos({ x: e.clientX, y: e.clientY })}>
-      <div className="stage" ref={stage}>
-        <Scene seen={seen} hinting={hinting} onOpen={open} onTip={setTip} labels={labels} />
+      <div className="stage">
+        <Scene seen={seen} hinting={hinting} onOpen={open} onTip={setTip} labels={labels} compact={compact} />
       </div>
 
       <header className="topbar">
+        <a className="pill cta" href={RESUME_HREF} download>
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 20h14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          <span>Résumé<span className="long"> (PDF)</span></span>
+        </a>
+        <a className="pill icon" href={`mailto:${EMAIL}`} aria-label={`Email Abhiram at ${EMAIL}`} title={EMAIL}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 7 9-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /></svg>
+        </a>
         <button className="pill" onClick={hint}>Hints</button>
         <button className="pill" onClick={() => setMenu((m) => !m)} aria-expanded={menu}>Menu</button>
       </header>
@@ -95,6 +106,19 @@ export default function App() {
         <p>I'm Abhiram — talent acquisition &amp; client partnerships. Click around and see what you find, or use the menu for a quicker way through.</p>
         <span className="count">{seen.size} OF {TOTAL} DISCOVERED</span>
       </section>
+
+      <ul className="hero" aria-label="Highlights">
+        {hero.map((h) => (
+          <li key={h.l}><strong>{h.n}</strong><span>{h.l}</span></li>
+        ))}
+      </ul>
+
+      <nav className="explore" aria-label="Explore the office">
+        {entries.map((e) => (
+          <button key={e.id} onClick={() => open(e.id)}>{e.menu}{seen.has(e.id) && <i aria-label="seen" />}</button>
+        ))}
+        <button onClick={() => open("lamp")}>Desk lamp{seen.has("lamp") && <i aria-label="seen" />}</button>
+      </nav>
 
       {tip && !openId && (
         <div className="tip" style={{ left: pos.x + 14, top: pos.y + 16 }}>{tip}</div>
@@ -112,6 +136,9 @@ export default function App() {
                 <button onClick={() => open(e.id)}>{e.menu}{seen.has(e.id) && <i aria-label="seen" />}</button>
               </li>
             ))}
+            <li>
+              <button onClick={() => open("lamp")}>Desk lamp{seen.has("lamp") && <i aria-label="seen" />}</button>
+            </li>
           </ul>
         </nav>
       )}
