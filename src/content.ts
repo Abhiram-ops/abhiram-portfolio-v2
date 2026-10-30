@@ -79,7 +79,7 @@ export const entries: Entry[] = [
           "Run the recruiter team's daily requisition flow against a same-day closure SLA.",
         ],
       },
-      { t: "h", text: "Caarya · Business Development Manager (Internship)" },
+      { t: "h", text: "Earlier · Caarya, Business Development Manager (Internship)" },
       {
         t: "stats",
         items: [
@@ -387,7 +387,7 @@ export const byId = Object.fromEntries(entries.map((e) => [e.id, e])) as Record<
 // Headline proof points shown on the landing view (no clicks needed).
 export const hero = [
   { org: "OpenHire", role: "Growth Consultant", items: [{ n: "5", l: "enterprise client accounts" }, { n: "2 lakh+", l: "placements delivered" }] },
-  { org: "Caarya", role: "BD Manager (Internship)", items: [{ n: "35%", l: "pipeline conversion" }, { n: "50%", l: "increase in partner onboarding" }] },
+  { org: "Earlier · Caarya", role: "BD Manager (Internship)", items: [{ n: "35%", l: "pipeline conversion" }, { n: "50%", l: "increase in partner onboarding" }] },
 ];
 
 export const EMAIL = "lankaabhiram16@gmail.com";
