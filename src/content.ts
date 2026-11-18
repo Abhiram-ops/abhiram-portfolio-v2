@@ -161,7 +161,7 @@ export const entries: Entry[] = [
             role: "Cybersecurity Chapter Lead",
             org: "codeIAM Club, Andhra University",
             when: "Apr 2024 – Mar 2025",
-            points: ["Led the chapter; organised student summits and the Codeiam Spark Nation Hackathon."],
+            points: ["Led the chapter; organised student summits. Core organising member of the Codeiam Spark Nation Hackathon."],
           },
           {
             role: "Cybersecurity Intern",
@@ -297,7 +297,7 @@ export const entries: Entry[] = [
         items: [
           "1st Prize — ABVP Event, Andhra University, 2024",
           "Cybersecurity Chapter Lead, codeIAM Club — student summits and security workshops",
-          "Organising Committee Member, Codeiam Spark Nation Hackathon",
+          "Core Organising Member, Codeiam Spark Nation Hackathon",
           "Creator & maintainer of AgentSentry, an open-source security scanner",
           "Attendee, BSides Vizag 2025 Cybersecurity Conference",
           "Participant, 43rd State Conference (2025), Andhra University",
